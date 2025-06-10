@@ -1,0 +1,23 @@
+<h2>Create your order</h2>
+
+<div>    another way using two data binding
+  <label for="" class="form-label">---Category---</label>
+  <select  class="form-control"  [(ngModel)]="selectedCategoryId" >
+    <option value="0" selected>All</option>
+    <option [value]="cat.id" *ngFor="let cat of categoryList">{{cat.name}}</option>
+  </select>
+</div>
+
+<hr>
+<div class="bg-warning">
+<app-productlist [inputCatId]="selectedCategoryId" (totalePriceChange)="onTotalPriceChanged($event)"></app-productlist>
+</div>
+<hr>
+
+<div>
+  <h3>Enter your name</h3>
+  <input #clientNameInput type="text" name="" id="" class="form-control w-50" >
+</div>
+
+
+<h3>Total Order Price : {{orderTotalPrice}}</h3>

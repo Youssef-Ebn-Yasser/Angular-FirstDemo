@@ -1,0 +1,24 @@
+<div>
+<img  
+      [src]="StoreInfo.ImageUrl"
+      class="img-fluid m-1"
+> <!--this []   means this is the value in the class-->
+
+</div>
+<button class="btn btn-success d-blobk" (click)="ShowImage()" >Click me</button>
+
+<h1>{{StoreInfo.name}}</h1>
+
+<h3>Branches</h3>
+<ul>
+  <li *ngFor="let item of StoreInfo.Branches">
+    {{item}}
+  </li>
+</ul>
+
+
+<ul>
+  @for (item of StoreInfo?.Branches || []; track item) {
+    <li >{{ item }}</li>
+  }
+</ul>

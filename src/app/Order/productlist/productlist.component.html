@@ -1,0 +1,78 @@
+<!-- <div>   way to bind
+  <label for="" class="form-label">---Category---</label>
+  <select #selectVal class="form-control" (change)="getSelected(selectVal.value)" >
+    <option [value]="cat.id" *ngFor="let cat of categoryList">{{cat.name}}</option>
+  </select>
+</div> -->
+
+<!-- <div>    another way using two data binding
+  <label for="" class="form-label">---Category---</label>
+  <select  class="form-control"  [(ngModel)]="selectedCategoryId" (change)="FilterProductsByCategoryId()">
+    <option [value]="cat.id" *ngFor="let cat of categoryList">{{cat.name}}</option>
+  </select>
+</div> -->
+
+<!-- <div class="text-secondary">
+  [to be deleted] for test
+  {{selectedCategoryId}}
+</div> -->
+
+
+
+<hr>
+<table class="table">
+  <thead>
+    <tr class="bg-dark text-light">
+      <th>Number</th>
+      <th>Name</th>
+      <th>ImageUrl</th>
+      <th>Quantity</th>
+      <th>Needed Qui</th>
+      <th>Price</th>
+      <th>CategoryID</th>
+      <th>Buy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container >
+      <tr *ngFor = "let product of productListOfCat; let i= index; trackBy:ProductTrak">   <!-- trackby:ProductTrak improve performance by replace just only changed element-->
+        <td scope="row">{{i+1}}</td>
+        <td scope="row">{{product?.name}}</td>
+        <td scope="row"><img LightBox="red" defaultColor="green" src="{{product.imageUrl}}" width="50" height="50" alt=""></td>
+        <td scope="row">{{product?.quantity}}</td>
+        <td><input type="number" class="form-control" #Qui></td>
+        <td scope="row">{{product?.price |currency:'EUR':'symbol'}}</td> <!-- pipe use after property to change in shape -->
+        <td scope="row">{{product?.categoryId}}</td>
+      <td><button class="btn btn-success" (click)="buy(product.price,Qui.value)">clik</button></td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+<hr>
+
+<!-- this is use of if and else -->
+<!-- <div *ngIf="isTrue;else isFalse">
+  <h1>This inside true NG If and value of  ={{isTrue}}</h1>
+</div>
+<ng-template #isFalse>
+  <h1>This inside true NG Templete and value of  ={{isTrue}}</h1>
+</ng-template> -->
+
+
+<!-- ng-switch -->
+<!--
+<div [ngSwitch]="conditionExpression">
+  <div *ngSwitchCase=1>Hi this is case {{conditionExpression}}</div>
+  <div *ngSwitchCase=2>Hi this is case {{conditionExpression}}</div>
+    <div *ngSwitchCase=3>Hi this is case {{conditionExpression}}</div>
+  <div *ngSwitchDefault>Hi this is case from default</div>
+</div>
+
+<input [(ngModel)]="conditionExpression" type="number">
+
+<button (click)="ChangeIsTrue()">Change</button>
+<p>Total price after click => {{orderTotalPrice}}</p>
+
+<div>
+Today is {{orderDate | date:'yyyy-mm-dd'}}
+</div> -->
