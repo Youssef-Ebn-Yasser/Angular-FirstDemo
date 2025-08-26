@@ -30,6 +30,7 @@
       <th>Needed Qui</th>
       <th>Price</th>
       <th>CategoryID</th>
+      <th>Details</th>
       <th>Buy</th>
     </tr>
   </thead>
@@ -43,7 +44,10 @@
         <td><input type="number" class="form-control" #Qui></td>
         <td scope="row">{{product?.price |currency:'EUR':'symbol'}}</td> <!-- pipe use after property to change in shape -->
         <td scope="row">{{product?.categoryId}}</td>
-      <td><button class="btn btn-success" (click)="buy(product.price,Qui.value)">clik</button></td>
+      <!-- <td><button class="btn btn-success" (click)="opnDetails(product.id)">Details</button></td> -->
+
+      <td><a class="btn btn-primary" [routerLink]="['/products',product.id]"><Details></Details></a></td>
+      <td><button class="btn btn-success" (click)="buy(product.price,Qui.value)">buy</button></td>
       </tr>
     </ng-container>
   </tbody>

@@ -1,0 +1,8 @@
+<p>user-login works!</p>
+
+<div class="container">
+  <button [disabled]="isUserLogged" class="btn btn-primary m-5" (click)="login()">Login</button>
+  <button [disabled]="!isUserLogged" class="btn btn-danger" (click)="logout()">Logout</button>
+</div>
+
+

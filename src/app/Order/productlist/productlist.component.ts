@@ -1,16 +1,18 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { IProduct } from '../../Models/iproduct';
 import { CommonModule } from '@angular/common'; // Changed from individual imports
 import { ICategory } from '../../Models/icategory';
 import { FormsModule } from '@angular/forms';
 import { LightBoxDirective } from '../../Directive/light-box.directive';
+import { StaticProductServiceService } from '../../Services/static-product-service.service';
+import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-productlist',
-  imports: [CommonModule,FormsModule,LightBoxDirective], // Replaced with CommonModule
+  imports: [CommonModule,FormsModule,LightBoxDirective,RouterLink], // Replaced with CommonModule
   templateUrl: './productlist.component.html',
   styleUrl: './productlist.component.css'
 })
-export class ProductlistComponent implements OnChanges {
+export class ProductlistComponent implements OnChanges,OnInit {
 
   @Input() inputCatId:number=0;
   @Output() totalePriceChange:EventEmitter<number>;
@@ -23,7 +25,14 @@ export class ProductlistComponent implements OnChanges {
   productList:IProduct[];
   // categoryList :ICategory[];
   productListOfCat:IProduct[]=[];
-  constructor(){
+
+
+
+  constructor(private staticProductService:StaticProductServiceService,
+              private router:Router){
+
+
+
     this.productList = [
       {
         id:1,
@@ -81,15 +90,24 @@ export class ProductlistComponent implements OnChanges {
 
     this.orderDate=new Date;
 
-    this.productListOfCat= this.productList;
+    // this.productListOfCat= this.productList;
       //in constructor
     this.totalePriceChange = new EventEmitter<number>();
 
+
+  }
+  ngOnInit(): void {
+
+    this.productListOfCat = this.staticProductService.getAllProduct();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.FilterProductsByCategoryId();
+    //this.FilterProductsByCategoryId();
+
+    this.productListOfCat = this.staticProductService.getProductByCategoryId(this.inputCatId);
+
   }
+
 
 
   buy(price:number,count:any):void{
@@ -119,12 +137,26 @@ export class ProductlistComponent implements OnChanges {
     this.isTrue=!this.isTrue;
   }
 
-  private FilterProductsByCategoryId(){
-  console.log("here inside FilterProductsByCategoryId");
-  if (this.inputCatId == 0) {
-    this.productListOfCat = this.productList; // Show all products when category is 0
-  } else {
-    this.productListOfCat = this.productList.filter(prd => prd.categoryId == this.inputCatId);
-  }
-  }
+  // private FilterProductsByCategoryId(){
+  // console.log("here inside FilterProductsByCategoryId");
+  // if (this.inputCatId == 0) {
+  //   this.productListOfCat = this.productList; // Show all products when category is 0
+  // } else {
+  //   this.productListOfCat = this.productList.filter(prd => prd.categoryId == this.inputCatId);
+  // }
+  // }
+
+opnDetails(productID:number)
+{
+    // from ts go to route
+
+    // 1-> ingect router from angular
+    // 2-> use navigate to navigate or navigateByUrl
+
+
+    //this.router.navigateByUrl('/products'+productID);
+
+    this.router.navigate(['/products',productID]);
+}
+
 }
